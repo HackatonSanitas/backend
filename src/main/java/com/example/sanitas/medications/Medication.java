@@ -1,4 +1,4 @@
-package com.example.sanitas;
+package com.example.sanitas.medications;
 
 import com.example.sanitas.medication_schedules.MedicationSchedule;
 import jakarta.persistence.*;
