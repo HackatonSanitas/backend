@@ -1,13 +1,13 @@
 package com.example.sanitas;
 
+import com.example.sanitas.medication_schedules.MedicationSchedule;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "medications")
