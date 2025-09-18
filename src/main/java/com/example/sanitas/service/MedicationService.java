@@ -97,4 +97,11 @@ public class MedicationService {
                 .map(MedicationMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    public List<MedicationIntake> getMedicationHistory() {
+        return medicationIntakeRepository.findAll()
+                .stream()
+                .sorted((a, b) -> b.getTakenAt().compareTo(a.getTakenAt()))
+                .collect(Collectors.toList());
+    }
 }
