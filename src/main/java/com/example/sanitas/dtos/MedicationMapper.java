@@ -21,7 +21,6 @@ public class MedicationMapper {
         return new MedicationResponse(
                 medication.getMedication(),
                 medication.getDose(),
-                medication.getFrequency(),
                 medication.getNextDate().toString() + " " + (medication.getNextTime() != null ? medication.getNextTime().toString() : ""),
                 medication.getStatus().name()
         );

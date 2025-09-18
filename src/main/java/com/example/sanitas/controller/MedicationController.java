@@ -3,6 +3,7 @@ package com.example.sanitas.controller;
 import com.example.sanitas.dtos.MedicationRequest;
 import com.example.sanitas.dtos.MedicationResponse;
 import com.example.sanitas.models.Medication;
+import com.example.sanitas.models.MedicationIntake;
 import com.example.sanitas.service.MedicationService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -46,6 +47,20 @@ public class MedicationController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("message", "Error al crear el medicamento: " + e.getMessage()));
+        }
+    }
+
+    @PostMapping("/{id}/take")
+    public ResponseEntity<?> markMedicationAsTaken(@PathVariable Long id) {
+        try {
+            Medication updatedMedication = medicationService.markAsTaken(id);
+            return ResponseEntity.ok(updatedMedication);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Medicamento no encontrado");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error al marcar como tomado: " + e.getMessage());
         }
     }
 }

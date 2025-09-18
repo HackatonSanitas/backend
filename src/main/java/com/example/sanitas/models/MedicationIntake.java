@@ -1,5 +1,6 @@
 package com.example.sanitas.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,7 @@ public class MedicationIntake {
 
     @ManyToOne
     @JoinColumn(name = "medication_id", nullable = false)
+    @JsonIgnore
     private Medication medication;
 
     @Column(name="take_at", nullable = false)

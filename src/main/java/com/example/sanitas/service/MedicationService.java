@@ -5,11 +5,16 @@ import com.example.sanitas.dtos.MedicationMapper;
 import com.example.sanitas.dtos.MedicationRequest;
 import com.example.sanitas.dtos.MedicationResponse;
 import com.example.sanitas.models.Medication;
+import com.example.sanitas.models.MedicationIntake;
+import com.example.sanitas.models.Status;
 import com.example.sanitas.repository.MedicationIntakeRepository;
 import com.example.sanitas.repository.MedicationRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import static com.example.sanitas.models.Status.PENDING;
@@ -48,5 +53,21 @@ public class MedicationService {
         medication.setStatus(PENDING);
         Medication savedMedication = medicationRepository.save(medication);
         return MedicationMapper.toDto(savedMedication);
+    }
+
+    @Transactional
+    public Medication markAsTaken(Long id) {
+        Medication medication = medicationRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Medicamento no encontrado"));
+
+        medication.setStatus(Status.TAKEN);
+        medicationRepository.save(medication);
+
+        MedicationIntake intake = new MedicationIntake();
+        intake.setMedication(medication);
+        intake.setTakenAt(LocalDateTime.now());
+        medicationIntakeRepository.save(intake);
+
+        return medication;
     }
 }
