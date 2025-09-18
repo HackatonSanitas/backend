@@ -18,4 +18,8 @@ public class MedicationService {
     public List<Medication> getActiveMedications() {
         return medicationRepository.findAll();
     }
+
+    public Medication createMediaction(Medication medication) {
+        return medicationRepository.save(medication);
+    }
 }
