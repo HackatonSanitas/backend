@@ -104,4 +104,11 @@ public class MedicationService {
         Medication updatedMedication = medicationRepository.save(existingMedication);
         return MedicationMapper.toDto(updatedMedication);
     }
+
+    @Transactional
+    public void deleteMedication(Long id) {
+        Medication medication = medicationRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Medicamento no encontrado con ID: " + id));
+        medicationRepository.delete(medication);
+    }
 }

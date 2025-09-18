@@ -83,4 +83,9 @@ public class MedicationController {
                     .body(Map.of("message", "Error al actualizar el medicamento: " + e.getMessage()));
         }
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteMedication(@PathVariable Long id) {
+        medicationService.deleteMedication(id);
+        return ResponseEntity.ok("Medicamento eliminado correctamente");
+    }
 }
