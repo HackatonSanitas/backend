@@ -153,5 +153,26 @@ class MedicationServiceTest {
             assertThrows(EntityNotFoundException.class, () -> medicationService.markAsTaken(5L));
         }
     }
+    @Nested
+    @DisplayName("UPDATE medication")
+    class UpdateMedicationTest {
+        @Test
+        void testUpdateMedication() {
+            MedicationRequest request = new MedicationRequest("Ibuprofeno actualizado", "500mg", LocalDate.now(), 2, LocalTime.of(10, 0));
+            when(medicationRepository.findById(1L)).thenReturn(Optional.of(med1));
+            when(medicationRepository.save(any(Medication.class))).thenReturn(med1);
 
+            MedicationResponse response = medicationService.updateMedication(1L, request);
+
+            assertEquals("Ibuprofeno actualizado", response.medication());
+        }
+
+        @Test
+        void testUpdateMedicationNotFound() {
+            when(medicationRepository.findById(3L)).thenReturn(Optional.empty());
+            MedicationRequest request = new MedicationRequest("Nada", "100mg", LocalDate.now(), 1, LocalTime.of(9, 0));
+
+            assertThrows(EntityNotFoundException.class, () -> medicationService.updateMedication(3L, request));
+        }
+    }
 }
