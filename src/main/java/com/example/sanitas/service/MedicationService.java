@@ -14,6 +14,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -69,5 +70,21 @@ public class MedicationService {
         medicationIntakeRepository.save(intake);
 
         return medication;
+    }
+
+    public List<MedicationResponse> getTodayMedications() {
+        LocalDate today = LocalDate.now();
+        return medicationRepository.findByNextDate(today)
+                .stream()
+                .map(MedicationMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<MedicationResponse> getTomorrowMedications() {
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        return medicationRepository.findByNextDate(tomorrow)
+                .stream()
+                .map(MedicationMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

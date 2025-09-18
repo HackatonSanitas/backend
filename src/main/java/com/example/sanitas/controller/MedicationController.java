@@ -63,4 +63,14 @@ public class MedicationController {
                     .body("Error al marcar como tomado: " + e.getMessage());
         }
     }
+
+    @GetMapping("/today")
+    public List<MedicationResponse> getTodayMedications() {
+        return medicationService.getTodayMedications();
+    }
+
+    @GetMapping("/tomorrow")
+    public List<MedicationResponse> getTomorrowMedications() {
+        return medicationService.getTomorrowMedications();
+    }
 }
