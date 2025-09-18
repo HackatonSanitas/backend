@@ -26,29 +26,6 @@ public class MedicationService {
     private final MedicationRepository medicationRepository;
     private final MedicationIntakeRepository medicationIntakeRepository;
 
-    public List<MedicationResponse> getActiveMedications() {
-        return medicationRepository.findAll()
-                .stream()
-                .map(MedicationMapper::toDto)
-                .collect(Collectors.toList());
-    }
-
-    public MedicationResponse updateMedication(Long id, MedicationRequest request) {
-        Medication existingMedication = medicationRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Medicamento no encontrado con ID: " + id));
-
-        existingMedication.setMedication(request.medication());
-        existingMedication.setDose(request.dose());
-        existingMedication.setNextDate(request.startDate());
-        existingMedication.setNextTime(request.schedule());
-
-        String frequency = request.days() == 1 ? "Una vez" : "Cada " + request.days() + " días";
-        existingMedication.setFrequency(frequency);
-
-        Medication updatedMedication = medicationRepository.save(existingMedication);
-        return MedicationMapper.toDto(updatedMedication);
-    }
-
     public MedicationResponse createMedication(MedicationRequest request) {
         Medication medication = MedicationMapper.toEntity(request);
         medication.setStatus(PENDING);
@@ -70,6 +47,13 @@ public class MedicationService {
         medicationIntakeRepository.save(intake);
 
         return medication;
+    }
+
+    public List<MedicationResponse> getActiveMedications() {
+        return medicationRepository.findAll()
+                .stream()
+                .map(MedicationMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     public List<MedicationResponse> getTodayMedications() {
@@ -103,5 +87,21 @@ public class MedicationService {
                 .stream()
                 .sorted((a, b) -> b.getTakenAt().compareTo(a.getTakenAt()))
                 .collect(Collectors.toList());
+    }
+
+    public MedicationResponse updateMedication(Long id, MedicationRequest request) {
+        Medication existingMedication = medicationRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Medicamento no encontrado con ID: " + id));
+
+        existingMedication.setMedication(request.medication());
+        existingMedication.setDose(request.dose());
+        existingMedication.setNextDate(request.startDate());
+        existingMedication.setNextTime(request.schedule());
+
+        String frequency = request.days() == 1 ? "Una vez" : "Cada " + request.days() + " días";
+        existingMedication.setFrequency(frequency);
+
+        Medication updatedMedication = medicationRepository.save(existingMedication);
+        return MedicationMapper.toDto(updatedMedication);
     }
 }
