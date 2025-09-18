@@ -16,4 +16,9 @@ public class MedicationController {
     public List<Medication> getAllActiveMedications(){
         return medicationService.getActiveMedications();
     }
+
+    @PostMapping
+    public Medication createMedication(@RequestBody Medication medication) {
+        return medicationService.createMediaction(medication);
+    }
 }
