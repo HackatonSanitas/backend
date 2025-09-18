@@ -52,7 +52,7 @@ class MedicationServiceTest {
                 .nextDate(LocalDate.now())
                 .nextTime(LocalTime.of(9, 0))
                 .frequency("Una vez")
-                .status(Status.PENDING)
+                .status(Status.PENDIENTE)
                 .build();
 
         med2 = Medication.builder()
@@ -62,7 +62,7 @@ class MedicationServiceTest {
                 .nextDate(LocalDate.now().plusDays(1))
                 .nextTime(LocalTime.of(12, 0))
                 .frequency("Cada 2 días")
-                .status(Status.PENDING)
+                .status(Status.PENDIENTE)
                 .build();
     }
     @Nested
@@ -132,7 +132,7 @@ class MedicationServiceTest {
 
             assertEquals("Ibuprofeno", response.medication());
             assertEquals("400mg", response.dose());
-            assertEquals(Status.PENDING.name(), response.status());
+            assertEquals(Status.PENDIENTE.name(), response.status());
         }
 
         @Test
@@ -143,7 +143,7 @@ class MedicationServiceTest {
 
             Medication result = medicationService.markAsTaken(1L);
 
-            assertEquals(Status.TAKEN, result.getStatus());
+            assertEquals(Status.TOMADO, result.getStatus());
             verify(medicationIntakeRepository, times(1)).save(any(MedicationIntake.class));
         }
 

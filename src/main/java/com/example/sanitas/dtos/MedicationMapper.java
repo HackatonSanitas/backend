@@ -13,7 +13,7 @@ public class MedicationMapper {
                 .frequency(frequency)
                 .nextDate(dto.startDate())
                 .nextTime(dto.schedule())
-                .status(Status.PENDING)
+                .status(Status.PENDIENTE)
                 .build();
     }
 

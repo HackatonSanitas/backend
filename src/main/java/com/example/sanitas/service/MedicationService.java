@@ -18,7 +18,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import static com.example.sanitas.models.Status.PENDING;
+
+import static com.example.sanitas.models.Status.PENDIENTE;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +29,7 @@ public class MedicationService {
 
     public MedicationResponse createMedication(MedicationRequest request) {
         Medication medication = MedicationMapper.toEntity(request);
-        medication.setStatus(PENDING);
+        medication.setStatus(PENDIENTE);
         Medication savedMedication = medicationRepository.save(medication);
         return MedicationMapper.toDto(savedMedication);
     }
@@ -38,7 +39,7 @@ public class MedicationService {
         Medication medication = medicationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Medicamento no encontrado"));
 
-        medication.setStatus(Status.TAKEN);
+        medication.setStatus(Status.TOMADO);
         medicationRepository.save(medication);
 
         MedicationIntake intake = new MedicationIntake();

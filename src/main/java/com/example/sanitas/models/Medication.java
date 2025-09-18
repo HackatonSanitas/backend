@@ -50,7 +50,7 @@ public class Medication {
     @PrePersist
     protected void onCreate(){
         createdAt = LocalDateTime.now();
-        if(status == null) status = Status.PENDING;
+        if(status == null) status = Status.PENDIENTE;
     }
 
 }
