@@ -1,4 +1,4 @@
-package com.example.sanitas.medications.dtos;
+package com.example.sanitas.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 

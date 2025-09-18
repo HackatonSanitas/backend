@@ -1,6 +1,6 @@
-package com.example.sanitas.medications.dtos;
+package com.example.sanitas.dtos;
 
-import com.example.sanitas.medications.Medication;
+import com.example.sanitas.models.Medication;
 
 public class MedicationMapper {
 

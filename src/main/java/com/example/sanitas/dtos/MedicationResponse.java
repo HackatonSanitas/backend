@@ -1,4 +1,4 @@
-package com.example.sanitas.medications.dtos;
+package com.example.sanitas.dtos;
 
 public record MedicationResponse(
         String medication,
