@@ -1,6 +1,7 @@
 package com.example.sanitas;
 
 import com.example.sanitas.controller.MedicationController;
+import com.example.sanitas.dtos.MedicationResponse;
 import com.example.sanitas.models.Medication;
 import com.example.sanitas.service.MedicationService;
 import org.junit.jupiter.api.Test;
@@ -32,17 +33,12 @@ public class MedicationControllerTest {
 
     @Test
     public void testGetAllActiveMedications() throws Exception{
-        Medication med1 = new Medication();
-        med1.setId(1L);
-        med1.setMedication("Ibuprofen");
-        med1.setDose("400mg");
+        MedicationResponse medResp1 = new MedicationResponse("Ibuprofen", "400mg", "Una vez", "2025-09-18 08:00", "PENDING");
 
-        Medication med2 = new Medication();
-        med2.setId(2L);
-        med2.setMedication("Paracetamol");
-        med2.setDose("600mg");
 
-        when(medicationService.getActiveMedications()).thenReturn(Arrays.asList(med1, med2));
+        MedicationResponse medResp2 = new MedicationResponse("Paracetamol", "600mg", "Cada 2 días", "2025-09-19 12:00", "PENDING");
+
+        when(medicationService.getActiveMedications()).thenReturn(Arrays.asList(medResp1, medResp2));
 
         mockMvc.perform(get("/api/medications"))
                 .andExpect(status().isOk())
