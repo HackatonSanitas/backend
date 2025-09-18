@@ -87,4 +87,14 @@ public class MedicationService {
                 .map(MedicationMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    public List<MedicationResponse> getWeekMedications() {
+        LocalDate today = LocalDate.now();
+        LocalDate weekEnd = today.plusDays(6);
+        return medicationRepository.findAll()
+                .stream()
+                .filter(m -> !m.getNextDate().isBefore(today) && !m.getNextDate().isAfter(weekEnd))
+                .map(MedicationMapper::toDto)
+                .collect(Collectors.toList());
+    }
 }

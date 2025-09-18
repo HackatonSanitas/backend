@@ -73,4 +73,9 @@ public class MedicationController {
     public List<MedicationResponse> getTomorrowMedications() {
         return medicationService.getTomorrowMedications();
     }
+
+    @GetMapping("/week")
+    public List<MedicationResponse> getWeekMedications() {
+        return medicationService.getWeekMedications();
+    }
 }
