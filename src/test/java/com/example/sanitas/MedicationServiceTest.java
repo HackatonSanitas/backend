@@ -65,6 +65,42 @@ class MedicationServiceTest {
                 .status(Status.PENDIENTE)
                 .build();
     }
+
+    @Nested
+    @DisplayName("CREATE medication")
+    class CreateMedicationTest {
+
+        @Test
+        void testCreateMedication() {
+            MedicationRequest request = new MedicationRequest("Ibuprofeno", "400mg", LocalDate.now(), 1, LocalTime.of(9, 0));
+            when(medicationRepository.save(any(Medication.class))).thenReturn(med1);
+
+            MedicationResponse response = medicationService.createMedication(request);
+
+            assertEquals("Ibuprofeno", response.medication());
+            assertEquals("400mg", response.dose());
+            assertEquals(Status.PENDIENTE.name(), response.status());
+        }
+
+        @Test
+        void testMarkAsTaken() {
+            when(medicationRepository.findById(1L)).thenReturn(Optional.of(med1));
+            when(medicationRepository.save(any(Medication.class))).thenReturn(med1);
+            when(medicationIntakeRepository.save(any(MedicationIntake.class))).thenReturn(new MedicationIntake());
+
+            Medication result = medicationService.markAsTaken(1L);
+
+            assertEquals(Status.TOMADO, result.getStatus());
+            verify(medicationIntakeRepository, times(1)).save(any(MedicationIntake.class));
+        }
+
+        @Test
+        void testMarkAsTakenNotFound() {
+            when(medicationRepository.findById(5L)).thenReturn(Optional.empty());
+            assertThrows(EntityNotFoundException.class, () -> medicationService.markAsTaken(5L));
+        }
+    }
+
     @Nested
     @DisplayName("GET medications")
     class GetMedicationTests{
@@ -119,40 +155,6 @@ class MedicationServiceTest {
         }
     }
 
-    @Nested
-    @DisplayName("CREATE medication")
-    class CreateMedicationTest {
-
-        @Test
-        void testCreateMedication() {
-            MedicationRequest request = new MedicationRequest("Ibuprofeno", "400mg", LocalDate.now(), 1, LocalTime.of(9, 0));
-            when(medicationRepository.save(any(Medication.class))).thenReturn(med1);
-
-            MedicationResponse response = medicationService.createMedication(request);
-
-            assertEquals("Ibuprofeno", response.medication());
-            assertEquals("400mg", response.dose());
-            assertEquals(Status.PENDIENTE.name(), response.status());
-        }
-
-        @Test
-        void testMarkAsTaken() {
-            when(medicationRepository.findById(1L)).thenReturn(Optional.of(med1));
-            when(medicationRepository.save(any(Medication.class))).thenReturn(med1);
-            when(medicationIntakeRepository.save(any(MedicationIntake.class))).thenReturn(new MedicationIntake());
-
-            Medication result = medicationService.markAsTaken(1L);
-
-            assertEquals(Status.TOMADO, result.getStatus());
-            verify(medicationIntakeRepository, times(1)).save(any(MedicationIntake.class));
-        }
-
-        @Test
-        void testMarkAsTakenNotFound() {
-            when(medicationRepository.findById(5L)).thenReturn(Optional.empty());
-            assertThrows(EntityNotFoundException.class, () -> medicationService.markAsTaken(5L));
-        }
-    }
     @Nested
     @DisplayName("UPDATE medication")
     class UpdateMedicationTest {
