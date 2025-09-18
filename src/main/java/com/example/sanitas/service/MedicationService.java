@@ -10,9 +10,9 @@ import com.example.sanitas.repository.MedicationRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import static com.example.sanitas.models.Status.PENDING;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +26,6 @@ public class MedicationService {
                 .map(MedicationMapper::toDto)
                 .collect(Collectors.toList());
     }
-
 
     public MedicationResponse updateMedication(Long id, MedicationRequest request) {
         Medication existingMedication = medicationRepository.findById(id)
@@ -44,7 +43,10 @@ public class MedicationService {
         return MedicationMapper.toDto(updatedMedication);
     }
 
-    public Medication createMediaction(Medication medication) {
-        return medicationRepository.save(medication);
+    public MedicationResponse createMedication(MedicationRequest request) {
+        Medication medication = MedicationMapper.toEntity(request);
+        medication.setStatus(PENDING);
+        Medication savedMedication = medicationRepository.save(medication);
+        return MedicationMapper.toDto(savedMedication);
     }
 }

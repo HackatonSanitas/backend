@@ -20,7 +20,7 @@ public class MedicationController {
     private final MedicationService medicationService;
 
     @GetMapping
-    public List<MedicationResponse> getAllActiveMedications(){
+    public List<MedicationResponse> getAllActiveMedications() {
         return medicationService.getActiveMedications();
     }
 
@@ -37,9 +37,15 @@ public class MedicationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("message", "Error al actualizar el medicamento: " + e.getMessage()));
         }
-
+    }
     @PostMapping
-    public Medication createMedication(@RequestBody Medication medication) {
-        return medicationService.createMediaction(medication);
+    public ResponseEntity<?> createMedication(@Valid @RequestBody MedicationRequest request) {
+        try {
+            MedicationResponse response = medicationService.createMedication(request);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("message", "Error al crear el medicamento: " + e.getMessage()));
+        }
     }
 }
