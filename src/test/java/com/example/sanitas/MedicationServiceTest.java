@@ -175,4 +175,22 @@ class MedicationServiceTest {
             assertThrows(EntityNotFoundException.class, () -> medicationService.updateMedication(3L, request));
         }
     }
+    @Nested
+    @DisplayName("DELETE medication")
+    class DeleteMedicationTest {
+
+        @Test
+        void testDeleteMedication() {
+            when(medicationRepository.findById(1L)).thenReturn(Optional.of(med1));
+
+            assertDoesNotThrow(() -> medicationService.deleteMedication(1L));
+            verify(medicationRepository, times(1)).delete(med1);
+        }
+
+        @Test
+        void testDeleteMedicationNotFound() {
+            when(medicationRepository.findById(3L)).thenReturn(Optional.empty());
+            assertThrows(EntityNotFoundException.class, () -> medicationService.deleteMedication(3L));
+        }
+    }
 }
