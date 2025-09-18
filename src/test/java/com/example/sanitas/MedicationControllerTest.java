@@ -33,10 +33,8 @@ public class MedicationControllerTest {
 
     @Test
     public void testGetAllActiveMedications() throws Exception{
-        MedicationResponse medResp1 = new MedicationResponse("Ibuprofen", "400mg", "Una vez", "2025-09-18 08:00", "PENDING");
-
-
-        MedicationResponse medResp2 = new MedicationResponse("Paracetamol", "600mg", "Cada 2 días", "2025-09-19 12:00", "PENDING");
+        MedicationResponse medResp1 = new MedicationResponse("Ibuprofen", "400mg", "2025-09-18 08:00", "PENDING");
+        MedicationResponse medResp2 = new MedicationResponse("Paracetamol", "600mg", "2025-09-19 12:00", "PENDING");
 
         when(medicationService.getActiveMedications()).thenReturn(Arrays.asList(medResp1, medResp2));
 
@@ -46,10 +44,4 @@ public class MedicationControllerTest {
                 .andExpect(jsonPath("$[0].medication").value("Ibuprofen"))
                 .andExpect(jsonPath("$[1].medication").value("Paracetamol"));
     }
-
-
-
-
-
-
 }
