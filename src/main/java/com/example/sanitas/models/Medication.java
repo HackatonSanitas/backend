@@ -1,6 +1,5 @@
-package com.example.sanitas.medications;
+package com.example.sanitas.models;
 
-import com.example.sanitas.medication_intakes.MedicationIntake;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
