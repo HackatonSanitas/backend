@@ -4,7 +4,6 @@ import com.example.sanitas.dtos.MedicationRequest;
 import com.example.sanitas.dtos.MedicationMapper;
 import com.example.sanitas.models.Medication;
 import com.example.sanitas.models.MedicationIntake;
-import com.example.sanitas.models.Status;
 import com.example.sanitas.repository.MedicationRepository;
 import com.example.sanitas.repository.MedicationIntakeRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -24,7 +23,6 @@ public class DataSeeder {
                                    MedicationIntakeRepository intakeRepository) {
         return args -> {
 
-            // Crear medicaciones de ejemplo
             MedicationRequest medReq1 = new MedicationRequest(
                     "Ibuprofen",
                     "400mg",
@@ -41,14 +39,11 @@ public class DataSeeder {
                     LocalTime.of(12, 0)
             );
 
-            // Convertir DTOs a entidades
             Medication med1 = MedicationMapper.toEntity(medReq1);
             Medication med2 = MedicationMapper.toEntity(medReq2);
 
-            // Guardar las medicaciones
             medicationRepository.saveAll(List.of(med1, med2));
 
-            // Crear intakes de ejemplo
             MedicationIntake intake1 = MedicationIntake.builder()
                     .medication(med1)
                     .takenAt(LocalDateTime.now().minusHours(1))
@@ -61,7 +56,6 @@ public class DataSeeder {
                     .notes("Tomada antes de comer")
                     .build();
 
-            // Guardar intakes
             intakeRepository.saveAll(List.of(intake1, intake2));
 
             System.out.println("Database seeded successfully!");

@@ -43,4 +43,11 @@ public class MedicationService {
         return MedicationMapper.toDto(updatedMedication);
     }
 
+    public void deleteMedication(Long id) {
+        if (!medicationRepository.existsById(id)) {
+            throw new EntityNotFoundException("Medicamento no encontrado con ID: " + id);
+        }
+        medicationRepository.deleteById(id);
+    }
+
 }

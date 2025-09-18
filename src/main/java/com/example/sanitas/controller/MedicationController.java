@@ -36,4 +36,17 @@ public class MedicationController {
                     .body(Map.of("message", "Error al actualizar el medicamento: " + e.getMessage()));
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteMedication(@PathVariable Long id) {
+        try {
+            medicationService.deleteMedication(id);
+            return ResponseEntity.noContent().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "Error al eliminar el medicamento: " + e.getMessage()));
+        }
+    }
 }
