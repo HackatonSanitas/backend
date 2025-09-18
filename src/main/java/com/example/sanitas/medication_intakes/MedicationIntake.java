@@ -1,12 +1,11 @@
 package com.example.sanitas.medication_intakes;
 
-import com.example.sanitas.medication_schedules.MedicationSchedule;
+import com.example.sanitas.medications.Medication;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,8 +20,8 @@ public class MedicationIntake {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "schedule_id", nullable = false)
-    private MedicationSchedule schedule;
+    @JoinColumn(name = "medication_id", nullable = false)
+    private Medication medication;
 
     @Column(name="take_at", nullable = false)
     private LocalDateTime takenAt;
