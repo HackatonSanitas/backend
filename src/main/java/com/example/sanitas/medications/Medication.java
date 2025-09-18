@@ -1,13 +1,14 @@
 package com.example.sanitas.medications;
 
-import com.example.sanitas.medication_schedules.MedicationSchedule;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalTime;
+
 
 @Entity
 @Table(name = "medications")
@@ -28,8 +29,11 @@ public class Medication {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MedicationSchedule> schedules;
+    @Column(nullable = false)
+    private LocalDate scheduleDate;
+
+    @Column(nullable=false)
+    private LocalTime scheduleTime;
 
     @PrePersist
     protected void onCreate(){
