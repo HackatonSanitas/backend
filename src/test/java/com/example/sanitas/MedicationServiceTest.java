@@ -47,30 +47,30 @@ class MedicationServiceTest {
 //    void testCreateMedication_Success() {
 //        // 1. ARRANGE - Setup the test data and define mock behavior
 //        Medication medicationToSave = new Medication();
-//        medicationToSave.setName("Ibuprofen");
-//        medicationToSave.setDosage("200mg");
-//        medicationToSave.setSchedule("09:00,21:00");
-//
+//        medicationToSave.setMedication("Ibuprofen");
+//        medicationToSave.setDose("200mg");
+//        medicationToSave.setFrequency("09:00,21:00");
+
 //        Medication savedMedication = new Medication();
 //        savedMedication.setId(1L); // Simulate the ID assigned by the database
-//        savedMedication.setName("Ibuprofen");
-//        savedMedication.setDosage("200mg");
-//        savedMedication.setSchedule("09:00,21:00");
-//        savedMedication.setCreatedDate(LocalDateTime.now());
-//        savedMedication.setIsActive(true);
-//
+//        savedMedication.setMedication("Ibuprofen");
+//        savedMedication.setDose("200mg");
+//        savedMedication.setFrequency("09:00,21:00");
+//        savedMedication.setCreatedAt(LocalDateTime.now());
+//        //savedMedication.setIsActive(true); TODOl FIX IT
+
 //        // Tell the mock repository what to do when 'save' is called
 //        when(medicationRepository.save(any(Medication.class))).thenReturn(savedMedication);
-//
+
 //        // 2. ACT - Call the method we are actually testing
 //        Medication result = medicationService.createMedication(medicationToSave);
-//
+
 //        // 3. ASSERT - Verify the result is what we expected
 //        assertNotNull(result); // Check that we got a result back
 //        assertEquals(1L, result.getId()); // Check that the ID was set
 //        assertEquals("Ibuprofen", result.getName()); // Check the name is correct
 //        assertTrue(result.getIsActive()); // Check it's active by default
-//
+
 //        // VERIFY - Ensure the mock repository's save method was called exactly once
 //        verify(medicationRepository, times(1)).save(medicationToSave);
 //    }

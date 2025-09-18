@@ -27,6 +27,7 @@ public class MedicationService {
                 .collect(Collectors.toList());
     }
 
+
     public MedicationResponse updateMedication(Long id, MedicationRequest request) {
         Medication existingMedication = medicationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Medicamento no encontrado con ID: " + id));
@@ -43,4 +44,7 @@ public class MedicationService {
         return MedicationMapper.toDto(updatedMedication);
     }
 
+    public Medication createMediaction(Medication medication) {
+        return medicationRepository.save(medication);
+    }
 }

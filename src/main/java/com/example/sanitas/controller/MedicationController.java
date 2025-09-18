@@ -2,6 +2,7 @@ package com.example.sanitas.controller;
 
 import com.example.sanitas.dtos.MedicationRequest;
 import com.example.sanitas.dtos.MedicationResponse;
+import com.example.sanitas.models.Medication;
 import com.example.sanitas.service.MedicationService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -23,6 +24,7 @@ public class MedicationController {
         return medicationService.getActiveMedications();
     }
 
+
     @PutMapping("/{id}")
     public ResponseEntity<?> updateMedication(@PathVariable Long id,
                                               @Valid @RequestBody MedicationRequest request) {
@@ -35,5 +37,9 @@ public class MedicationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("message", "Error al actualizar el medicamento: " + e.getMessage()));
         }
+
+    @PostMapping
+    public Medication createMedication(@RequestBody Medication medication) {
+        return medicationService.createMediaction(medication);
     }
 }
