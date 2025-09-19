@@ -1,10 +1,12 @@
-# Meditime
+# Sanitas - Medication Management App
+
+  <p><em>Tu dosis, siempre a tiempo</em></p>
 
 **Meditime** is a web application that helps you **remember, organize, and track your medication intake**, preventing missed doses that could put your treatment and well-being at risk.
 
-# Features
+# ✨ Features
 
-## Medication
+## 💊 Medication
 - **Create medication** with name, dose, start date, and frequency.
 - **Update or delete** existing medications.
 - **List medications**:
@@ -12,11 +14,11 @@
     - Medications scheduled for **today**, **yesterday**, and full **history**.
 - **Confirm intake**: record every time the user takes a dose (Medication Intake).
 
-## Testing
-- **Coverage:** **91 % classes** and **82 % lines**.
+## 🧪  Testing
+- **Coverage:** **91 % classes** and **85% lines**.
 - Complete unit tests for the **Service** layer.
 
-# Tech Stack
+# 🚀 Tech Stack
 
 ## Backend
 - Java 17
@@ -28,7 +30,7 @@
 - IntelliJ IDEA CE
 - JUnit & Mockito for testing
 
-## Project Structure
+## 📁 Project Structure
 ```
 ├── mvnw
 ├── pom.xml
@@ -65,13 +67,13 @@
 └── target
 ```
 
-# Getting Started
+# 🛠️ Getting Started
 
 ## Backend Setup
 ### Clone the repository
 ```
-git clone https://github.com/<your-org-or-user>/meditime-backend.git
-cd meditime-backend
+git clone https://github.com/HackatonSanitas/backend.git
+cd backend
 ```
 ### Copy and edit environment variables
 ```
@@ -95,16 +97,11 @@ cp .env.example .env
 | `PUT`       | `/api/medications/{id}`        | Update an existing medication.                 |
 | `DELETE`    | `/api/medications/{id}`        | Delete a medication.                           |
 
-# Tests
-
-- 91 % class coverage
-- 82 % line coverage
-
 # Team & Credits
 Developed during the Sanitas Hackathon by:
 - Angela Bello – @AngelaBello
 - Gabriel ML – @gabrielml
-- Gema Y.C. – @gemayc
+- Gema Yébenes – @gemayc
 - Maryori Cruz – @MaryoriCruz
 - Milca Ponce – @milcaponce
 - Paola Pulga – @Pao-Pul
